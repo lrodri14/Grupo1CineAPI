@@ -10,6 +10,8 @@ class Ciudad(models.Model):
 
     class Meta:
         db_table = 'ciudades'
+        verbose_name = 'Ciudad'
+        verbose_name_plural = 'Ciudades'
 
     def __str__(self):
         return self.nombre

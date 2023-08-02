@@ -17,6 +17,8 @@ class Factura(models.Model):
 
     class Meta:
         db_table = 'facturas'
+        verbose_name = 'Factura'
+        verbose_name_plural = 'Facturas'
 
 
 class Pago(models.Model):
@@ -28,6 +30,8 @@ class Pago(models.Model):
 
     class Meta:
         db_table = 'pagos'
+        verbose_name = 'Pago'
+        verbose_name_plural = 'Pagos'
 
 
 class DetalleBoleto(models.Model):
@@ -40,6 +44,8 @@ class DetalleBoleto(models.Model):
 
     class Meta:
         db_table = 'detallesboleto'
+        verbose_name = 'Detalle de Boleto'
+        verbose_name_plural = 'Detalles de Boletos'
 
 
 class DetalleProducto(models.Model):
@@ -51,3 +57,5 @@ class DetalleProducto(models.Model):
 
     class Meta:
         db_table = 'detallesproducto'
+        verbose_name = 'Detalle de Producto'
+        verbose_name_plural = 'Detalles de Productos'

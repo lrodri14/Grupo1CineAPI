@@ -32,9 +32,9 @@ DEBUG = True
 
 if DEBUG:
     SECURE_SSL_REDIRECT = True
-    ALLOWED_HOSTS = ['192.168.2.105']
+    ALLOWED_HOSTS = ['64.227.10.233']
 else:
-    ALLOWED_HOSTS = ['api.sealena.com', 'www.api.sealena.com']
+    ALLOWED_HOSTS = ['api.sealena.com', 'www.api.sealena.com', '64.227.10.233']
 
 # Application definition
 
@@ -152,7 +152,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Media Files

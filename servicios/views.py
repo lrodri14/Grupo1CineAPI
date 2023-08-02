@@ -13,14 +13,13 @@ class PeliculasAPIView(APIView):
     serializer_class = PeliculaSerializer
 
     def get(self, request):
-        # Recoleccion de datos
-        id_ciudad = request.GET.get('ciudad')
+        # Recolectar datos
+        estado = request.GET.get('estado')
         try:
-            ciudad = Ciudad.objects.get(id=id_ciudad)
-            peliculas = Horario.objects.filter(id_sala__ciudad=ciudad).distinct()
-            return Response(data={'data': {'peliculas': HorarioSerializer(peliculas, many=True).data}}, status=HTTP_200_OK)
-        except Ciudad.DoesNotExist:
-            return Response(data={'error': 'No se ha encontrado esa ciudad'}, status=HTTP_400_BAD_REQUEST)
+            peliculas = Pelicula.objects.filter(estado=estado)
+            return Response(data={'data': {'peliculas': self.serializer_class(peliculas, many=True).data}}, status=HTTP_200_OK)
+        except:
+            return Response(data={'error': 'Error al extraer las peliculas en cine'}, status=HTTP_400_BAD_REQUEST)
 
 
 class PeliculaAPIView(APIView):

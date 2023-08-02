@@ -51,6 +51,8 @@ class Clientes(AbstractUser):
 
     class Meta:
         db_table = 'clientes'
+        verbose_name = 'Cliente'
+        verbose_name_plural = 'Clientes'
 
     def save(self, *args, **kwargs):
         self.username = self.DNI if self.DNI else 'admin'
@@ -69,6 +71,11 @@ class CodigoVerificacion(models.Model):
     """
     codigo = models.CharField(max_length=6, blank=False, null=False, default=None)
     cliente = models.ForeignKey(Clientes, on_delete=models.CASCADE, blank=False, null=True)
+
+    class Meta:
+        db_table = 'codigo_verificacion'
+        verbose_name = 'Codigo de Verificacion'
+        verbose_name_plural = 'Codigos de Verificacion'
 
     def __str__(self):
         return self.codigo

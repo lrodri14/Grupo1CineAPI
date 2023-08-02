@@ -29,7 +29,7 @@ def crear_salas():
 
 
 def crear_peliculas():
-    for i in range(0, 100):
+    for i in range(0, 4):
         Pelicula.objects.create(titulo=faker.sentence(nb_words=5), duracion=random.randint(80, 200), genero=random.choice(['Horror', 'Accion', 'Suspenso']),
                                 sinopsis=faker.paragraph(nb_sentences=3), actores='Tom Cruise', estado=random.randint(1, 4), clasificacion=random.choice(['G', 'PG', 'PG-13']))
 
@@ -46,4 +46,4 @@ def crear_horarios():
 
 
 if __name__ == '__main__':
-    crear_horarios()
+    crear_peliculas()

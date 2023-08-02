@@ -13,6 +13,8 @@ class Sala(models.Model):
 
     class Meta:
         db_table = 'salas'
+        verbose_name = 'Sala'
+        verbose_name_plural = 'Salas'
 
     def __str__(self):
         return 'Sala #{} en {}'.format(self.id, self.ciudad.nombre)
@@ -29,5 +31,10 @@ class Asiento(models.Model):
 
     class Meta:
         db_table = 'asientos'
+        verbose_name = 'Asiento'
+        verbose_name_plural = 'Asientos'
+
+    def __str__(self):
+        return 'Asiento {}{} - {}'.format(self.numero, self.fila, self.id_sala.ciudad.nombre)
 
 

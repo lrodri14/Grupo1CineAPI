@@ -19,6 +19,8 @@ class Pelicula(models.Model):
 
     class Meta:
         db_table = 'peliculas'
+        verbose_name = 'Pelicula'
+        verbose_name_plural = 'Peliculas'
 
     def __str__(self):
         return self.titulo
@@ -34,8 +36,10 @@ class Horario(models.Model):
 
     class Meta:
         db_table = 'horarios'
+        verbose_name = 'Horario'
+        verbose_name_plural = 'Horarios'
 
     def __str__(self):
-        return str(self.hora_inicio)
+        return '{} - {}'.format(self.id_sala, self.hora_inicio)
 
 
