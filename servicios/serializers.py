@@ -26,4 +26,4 @@ class HorarioSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Horario
-        fields = ('sala', 'pelicula', 'hora_inicio', )
+        fields = ('id', 'sala', 'pelicula', 'hora_inicio', )
