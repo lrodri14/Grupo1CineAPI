@@ -1,3 +1,5 @@
+import json
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_500_INTERNAL_SERVER_ERROR
@@ -48,15 +50,18 @@ class AsientosAPIView(APIView):
 
     def get(self, request, pk):
         #  Recoleccion de datos
-
         try:
             horario = Horario.objects.get(pk=pk)
             pelicula = horario.id_pelicula
-            asientos = horario.id_sala.sala_asientos
+            asientos = horario.id_sala.sala_asientos.all()
+            asientos_data = {}
+            for asiento in asientos:
+                asientos_data['{}{}'.format(asiento.fila, asiento.numero)] = asiento.ocupado
             return Response(data={'data': {'pelicula': PeliculaSerializer(pelicula).data,
-                                           'asientos': self.serializer_class(asientos, many=True).data}}, status=HTTP_200_OK)
+                                           'asientos': asientos_data}}, status=HTTP_200_OK)
         except:
-            return Response(data={'error': 'No se pudieron extraer los datos'}, status=HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(data={'error': 'No se pudieron extraer los asientos'}, status=HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 
 
