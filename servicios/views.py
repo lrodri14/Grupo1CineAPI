@@ -1,7 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_500_INTERNAL_SERVER_ERROR
 from servicios.serializers import PeliculaSerializer, HorarioSerializer
+from salas.serializers import AsientoSerializer
 from ciudades.models import Ciudad
 from servicios.models import Pelicula, Horario
 
@@ -37,3 +38,26 @@ class PeliculaAPIView(APIView):
                                            'horarios': HorarioSerializer(horarios, many=True).data}, status=HTTP_200_OK)
         except Ciudad.DoesNotExist:
             return Response(data={'error': 'No se ha encontrado esa pelicula'}, status=HTTP_400_BAD_REQUEST)
+
+
+class AsientosAPIView(APIView):
+    """
+        DOCSTRING: AsientosAPIView, responsable de la extraccion de los asientos
+    """
+    serializer_class = AsientoSerializer
+
+    def get(self, request, pk):
+        #  Recoleccion de datos
+
+        try:
+            horario = Horario.objects.get(pk=pk)
+            pelicula = horario.id_pelicula
+            asientos = horario.id_sala.sala_asientos
+            return Response(data={'data': {'pelicula': PeliculaSerializer(pelicula).data,
+                                           'asientos': self.serializer_class(asientos, many=True).data}}, status=HTTP_200_OK)
+        except:
+            return Response(data={'error': 'No se pudieron extraer los datos'}, status=HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+

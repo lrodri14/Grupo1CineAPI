@@ -100,8 +100,7 @@ class ClienteVerificacionAPIView(APIView):
             usuario.verificado = True
             usuario.save()
             token, _ = Token.objects.get_or_create(user=usuario)
-            return Response(data={'data': {'mensaje': 'Revise su bandeja de correo para obtener su codigo de verificacion'}},
-                            status=HTTP_200_OK)
+            return Response(data={'data': {'token': token.key}}, status=HTTP_200_OK)
         except:
             return Response(data={'error': 'Occurio un error al intentar verificar su perfil'}, status=HTTP_400_BAD_REQUEST)
 
