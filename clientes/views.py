@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED, HTTP_404_NOT_FOUND
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
@@ -63,19 +64,20 @@ class ClienteAPIView(APIView):
         DOCSTRING: ClienteAPIView, endpoint responsable del manejo de perfil del cliente
     """
     serializer_class = ClienteSerializer
+    authentication_classes = [TokenAuthentication]
 
-    def get(self, request, pk=None):
+    def get(self, request):
         try:
-            cliente = Clientes.objects.get(pk=pk)
+            cliente = request.user
             return Response(data={'data': {'cliente': self.serializer_class(cliente).data}}, status=HTTP_200_OK)
         except Clientes.DoesNotExist:
             return Response(data={'error': 'El Cliente no existe'}, status=HTTP_404_NOT_FOUND)
 
-    def patch(self, request, pk=None):
+    def patch(self, request):
         # Recoleccion de datos
         data = request.data
         try:
-            cliente = Clientes.objects.get(pk=pk)
+            cliente = request.user
             cliente_form = ClienteUpdateForm(data, instance=cliente)
             if cliente_form.is_valid():
                 cliente = cliente_form.save()

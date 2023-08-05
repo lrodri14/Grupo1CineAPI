@@ -16,7 +16,7 @@ class PeliculaSubSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pelicula
-        fields = ('id', 'imagen', 'titulo', 'estado', )
+        fields = ('id', 'imagen', 'titulo', 'estado', 'precio', )
 
 
 class HorarioSerializer(serializers.ModelSerializer):

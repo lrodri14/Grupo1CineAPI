@@ -11,5 +11,5 @@ urlpatterns = [
     path('solicitud_cambio_contra', ClienteSolicitudCambioContrasenaAPIView.as_view(), name='solicitud_cambio_contra'),
     path('verificacion_contra', ClienteContraVerificacionAPIView.as_view(), name='verificacion_contra'),
     path('cambio_contra', ClienteCambioContraAPIView.as_view(), name='cambio_contra'),
-    path('cliente/<int:pk>', ClienteAPIView.as_view(), name='cliente_perfil'),
+    path('cliente', ClienteAPIView.as_view(), name='cliente_perfil'),
 ]

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from servicios.models import Pelicula
+from servicios.models import Pelicula, Horario
 from salas.models import Asiento
 from productos.models import Producto
 
@@ -35,12 +35,11 @@ class Pago(models.Model):
 
 
 class DetalleBoleto(models.Model):
-
     id_factura = models.ForeignKey(Factura, on_delete=models.CASCADE, blank=True, null=True, related_name='factura_detalle')
     id_pelicula = models.ForeignKey(Pelicula, on_delete=models.CASCADE, blank=True, null=True, related_name='pelicula_detalle')
-    id_horario = models.ForeignKey(Factura, on_delete=models.CASCADE, blank=True, null=True, related_name='horario_detalle')
+    id_horario = models.ForeignKey(Horario, on_delete=models.CASCADE, blank=True, null=True, related_name='horario_detalle')
     id_asiento = models.ForeignKey(Asiento, on_delete=models.CASCADE, blank=True, null=True, related_name='asiento_detalle')
-    precio_unitario = models.FloatField(blank=False, null=False)
+    precio_unitario = models.FloatField(blank=True, null=True, default=0.00)
 
     class Meta:
         db_table = 'detallesboleto'

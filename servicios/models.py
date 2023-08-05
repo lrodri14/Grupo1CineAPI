@@ -16,6 +16,7 @@ class Pelicula(models.Model):
     actores = models.TextField(blank=False, null=False)
     estado = models.IntegerField(blank=False, null=False, default=True)
     clasificacion = models.TextField(blank=False, null=False)
+    precio = models.FloatField(blank=False, null=False, default=100.0)
 
     class Meta:
         db_table = 'peliculas'
