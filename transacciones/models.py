@@ -20,6 +20,9 @@ class Factura(models.Model):
         verbose_name = 'Factura'
         verbose_name_plural = 'Facturas'
 
+    def __str__(self):
+        return "Factura de {} {}".format(self.id_cliente.first_name, self.id_cliente.last_name)
+
 
 class Pago(models.Model):
 
@@ -46,11 +49,14 @@ class DetalleBoleto(models.Model):
         verbose_name = 'Detalle de Boleto'
         verbose_name_plural = 'Detalles de Boletos'
 
+    def __str__(self):
+        return "Detalle de Boleto: {}".format(self.id_pelicula.titulo)
+
 
 class DetalleProducto(models.Model):
 
     id_factura = models.ForeignKey(Factura, on_delete=models.CASCADE, blank=True, null=True, related_name='factura_producto')
-    id_pelicula = models.ForeignKey(Producto, on_delete=models.CASCADE, blank=True, null=True, related_name='producto_detalle')
+    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE, blank=True, null=True, related_name='producto_detalle')
     cantidad = models.IntegerField(blank=False, null=False)
     precio_unitario = models.FloatField(blank=False, null=False)
 
@@ -58,3 +64,7 @@ class DetalleProducto(models.Model):
         db_table = 'detallesproducto'
         verbose_name = 'Detalle de Producto'
         verbose_name_plural = 'Detalles de Productos'
+
+    def __str__(self):
+        return "Detalle de Producto: {}".format(self.id_producto.nombre)
+
