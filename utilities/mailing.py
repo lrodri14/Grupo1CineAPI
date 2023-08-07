@@ -29,11 +29,12 @@ def enviar_correo_verificacion(nombre, apellido, recipiente, id):
 
 def enviar_correo_boletos(nombre, apellido, recipiente, id):
     # Funcion responsable del envio del correo de bienvenida de un nuevo usuario
-    sujeto = 'Compra de Golosinas'
+    sujeto = 'Compra de Boletos'
     mensaje = 'Estimado/a {} {},\n\n' \
-              '¡Gracias por registrarte en Cinepolis! Para completar el proceso de registro, necesitamos verificar tu dirección de correo electrónico. \n\n'\
-              'Por favor, utiliza el siguiente código de verificación para confirmar tu cuenta: \n\n' \
-              'Código de Verificación: {}'.format(nombre, apellido, id)
+              'Esperamos que disfrutes cada momento en nuestras instalaciones, desde la increíble calidad de imagen y ' \
+              'sonido hasta el ambiente acogedor que creamos para ti. Ya sea que estés disfrutando de una película con ' \
+              'amigos, familiares o por tu cuenta, sabemos que vivirás una experiencia única y memorable.\n\n' \
+              'Código de Factura: {}-{}'.format(nombre, apellido, id, random.randint(999999, 10000000))
     de = 'larodriguez@uth.hn'
     email = EmailMessage(sujeto, mensaje, de, [recipiente])
     email.send()
