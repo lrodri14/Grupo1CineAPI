@@ -1,3 +1,4 @@
+import random
 from django.core.mail import EmailMessage
 
 # Define your functions here.
@@ -21,6 +22,31 @@ def enviar_correo_verificacion(nombre, apellido, recipiente, id):
               '¡Gracias por registrarte en Cinepolis! Para completar el proceso de registro, necesitamos verificar tu dirección de correo electrónico. \n\n'\
               'Por favor, utiliza el siguiente código de verificación para confirmar tu cuenta: \n\n' \
               'Código de Verificación: {}'.format(nombre, apellido, id)
+    de = 'larodriguez@uth.hn'
+    email = EmailMessage(sujeto, mensaje, de, [recipiente])
+    email.send()
+
+
+def enviar_correo_boletos(nombre, apellido, recipiente, id):
+    # Funcion responsable del envio del correo de bienvenida de un nuevo usuario
+    sujeto = 'Compra de Golosinas'
+    mensaje = 'Estimado/a {} {},\n\n' \
+              '¡Gracias por registrarte en Cinepolis! Para completar el proceso de registro, necesitamos verificar tu dirección de correo electrónico. \n\n'\
+              'Por favor, utiliza el siguiente código de verificación para confirmar tu cuenta: \n\n' \
+              'Código de Verificación: {}'.format(nombre, apellido, id)
+    de = 'larodriguez@uth.hn'
+    email = EmailMessage(sujeto, mensaje, de, [recipiente])
+    email.send()
+
+
+def enviar_correo_productos(nombre, apellido, factura, recipiente):
+    # Funcion responsable del envio del correo de bienvenida de un nuevo usuario
+    sujeto = 'Compra de Productos'
+    mensaje = 'Estimado/a {} {},\n\n' \
+              'En Cinepolis, queremos expresar nuestro más sincero agradecimiento por elegirnos para disfrutar de una ' \
+              'experiencia cinematográfica única. Estamos encantados de que hayas confiado en nosotros para ser parte de ' \
+              'tu entretenimiento y diversión. \n\n' \
+              'Código de Factura: {}-{}'.format(nombre, apellido, factura, random.randint(999999, 10000000))
     de = 'larodriguez@uth.hn'
     email = EmailMessage(sujeto, mensaje, de, [recipiente])
     email.send()
