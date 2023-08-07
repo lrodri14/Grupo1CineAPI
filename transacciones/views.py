@@ -6,11 +6,28 @@ from servicios.models import Pelicula, Horario
 from salas.models import Asiento
 from productos.models import Producto
 from transacciones.models import Factura, DetalleBoleto, DetalleProducto
-from .serializers import DetalleBoletoSerializer
+from .serializers import DetalleBoletoSerializer, FacturaSerializer
 from productos.serializers import ProductoSerializer
 from utilities.mailing import enviar_correo_boletos, enviar_correo_productos
 
 # Create your views here.
+
+class FacturasAPIView(APIView):
+    """
+        DOCSTRING: FacturasAPIVew, responsable de la extraccion de facturas
+    """
+    authentication_classes = [TokenAuthentication]
+    serializer_class = FacturaSerializer
+
+    def get(self, request):
+        try:
+            # Recoleccion de datos
+            cliente = request.user
+            facturas = Factura.objects.filter(id_cliente=cliente)
+            return Response(data={'data': {'facturas': self.serializer_class(facturas, many=True)}}, status=HTTP_200_OK)
+        except Factura.DoesNotExist:
+            return Response(data={'error': 'No se pueden extraer las facturas'}, status=HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 
 class FacturarBoletosAPIView(APIView):
